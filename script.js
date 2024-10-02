@@ -11,23 +11,23 @@ async function getWeatherData(city = 'Portland') {
 	return DUMMY_DATA;
 }
 
-function formatWeatherData() {
-	getWeatherData().then((data) => {
-		const currentConditions = data.currentConditions;
-		const futureConditions = data.days.map((day) => {
-			return {
-				conditions: day.conditions,
-				datetime: day.datetime,
-				description: day.description,
-				icon: day.icon,
-				temp: day.temp,
-				tempmax: day.tempmax,
-				tempmin: day.tempmin,
-			};
-		});
-    console.log(currentConditions);
-		console.log(futureConditions);
-	});
-}
+getWeatherData().then((data) => {
+	formatWeatherData(data);
+});
 
-formatWeatherData();
+function formatWeatherData(data) {
+	const currentConditions = data.currentConditions;
+	const futureConditions = data.days.map((day) => {
+		return {
+			conditions: day.conditions,
+			datetime: day.datetime,
+			description: day.description,
+			icon: day.icon,
+			temp: day.temp,
+			tempmax: day.tempmax,
+			tempmin: day.tempmin,
+		};
+	});
+	console.log(currentConditions);
+	console.log(futureConditions);
+}
