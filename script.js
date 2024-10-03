@@ -7,13 +7,13 @@ async function getWeatherData(city = 'Portland') {
 	// 	await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/next7days?unitGroup=us&elements=datetime%2Ctempmax%2Ctempmin%2Ctemp%2Cconditions%2Cdescription%2Cicon&include=fcst%2Chours%2Ccurrent%2Cdays&key=${API_KEY}&options=nonulls&contentType=json
 	// `);
 	// const weatherData = await response.json();
+	const weatherData = await new Promise((resolve) => {
+		setTimeout(() => resolve(DUMMY_DATA), 0.5);
+	});
 
-	return DUMMY_DATA;
+	hideLoadingState();
+	formatWeatherData(weatherData);
 }
-
-getWeatherData().then((data) => {
-	formatWeatherData(data);
-});
 
 function formatWeatherData(data) {
 	const currentConditions = data.currentConditions;
@@ -28,6 +28,29 @@ function formatWeatherData(data) {
 			tempmin: day.tempmin,
 		};
 	});
-	console.log(currentConditions);
-	console.log(futureConditions);
+	renderCurrentConditions(currentConditions);
+	renderFutureConditions(futureConditions);
 }
+
+function renderCurrentConditions(currentConditions) {
+	const { conditions, datetime, icon, temp } = currentConditions;
+	const currentWeatherContainer = document.querySelector('.current-weather');
+	const iconImg = document.createElement('img');
+	iconImg.src = `./icons/${icon}.svg`;
+	console.log(iconImg);
+	currentWeatherContainer.appendChild(iconImg);
+}
+
+function hideLoadingState() {
+	const searchAndLocationContainer = document.querySelector(
+		'.search-and-location'
+	);
+	const currentWeatherContainer = document.querySelector('.current-weather');
+	const weatherForecastContainer = document.querySelector('.weather-forecast');
+
+	searchAndLocationContainer.innerHTML = '';
+	currentWeatherContainer.innerHTML = '';
+	weatherForecastContainer.innerHTML = '';
+}
+
+getWeatherData();
