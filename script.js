@@ -61,7 +61,7 @@ function renderFutureConditions(futureConditions) {
 		const icon = futureConditions[index].icon;
 		const iconImg = createElement('img', 'daily-icon', `./icons/${icon}.svg`);
 		const temp = futureConditions[index].temp;
-		const tempHeading = createElement('h2', 'daily-temp', '', temp);
+		const tempHeading = createElement('h2', 'daily-temp', '', `${temp}°`);
 		dailyContainer.append(dateHeading, iconImg, tempHeading);
 		weatherForecast.appendChild(dailyContainer);
 	}

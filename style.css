@@ -81,7 +81,6 @@ body {
 .weather-forecast {
 	display: flex;
 	flex-direction: row;
-	flex-grow: 1;
 	background-color: whitesmoke;
 	grid-area: weather-forecast;
   width: 65%;
@@ -89,6 +88,22 @@ body {
 	border-radius: 6px;
   box-shadow: var(--modern-box-shadow);
   justify-self: center;
+	align-self: center;
+}
+
+.weather-forecast > :nth-child(-n+7) {
+	border-right: 1px solid rgba(0, 0, 0, 0.226);
+}
+
+.daily-forecast {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	padding: 10px;
+}
+
+.daily-date, .daily-temp {
 	align-self: center;
 }
 
