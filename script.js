@@ -17,15 +17,13 @@ async function getWeatherData(city = 'Portland') {
 
 function formatWeatherData(data) {
 	const currentConditions = data.currentConditions;
+	currentConditions.location = data.resolvedAddress;
+
 	const futureConditions = data.days.map((day) => {
 		return {
-			conditions: day.conditions,
-			datetime: day.datetime,
-			description: day.description,
+			date: day.datetime.slice(5),
 			icon: day.icon,
 			temp: day.temp,
-			tempmax: day.tempmax,
-			tempmin: day.tempmin,
 		};
 	});
 	renderCurrentConditions(currentConditions);
@@ -33,12 +31,48 @@ function formatWeatherData(data) {
 }
 
 function renderCurrentConditions(currentConditions) {
-	const { conditions, datetime, icon, temp } = currentConditions;
+	const { conditions, location, icon, temp } = currentConditions;
 	const currentWeatherContainer = document.querySelector('.current-weather');
-	const iconImg = document.createElement('img');
-	iconImg.src = `./icons/${icon}.svg`;
-	console.log(iconImg);
-	currentWeatherContainer.appendChild(iconImg);
+
+	const iconImg = createElement('img', 'current-icon', `./icons/${icon}.svg`);
+	const tempHeading = createElement('h1', 'current-temp', '', `${temp}°`);
+	const locationHeading = createElement('h2', 'current-location', '', location);
+	const conditionHeading = createElement(
+		'h1',
+		'current-condition',
+		'',
+		conditions
+	);
+
+	currentWeatherContainer.append(
+		iconImg,
+		tempHeading,
+		locationHeading,
+		conditionHeading
+	);
+}
+
+function renderFutureConditions(futureConditions) {
+	const weatherForecast = document.querySelector('.weather-forecast');
+	for (let index in futureConditions) {
+		const dailyContainer = createElement('div', 'daily-forecast');
+		const date = futureConditions[index].date;
+		const dateHeading = createElement('h3', 'daily-date', '', date);
+		const icon = futureConditions[index].icon;
+		const iconImg = createElement('img', 'daily-icon', `./icons/${icon}.svg`);
+		const temp = futureConditions[index].temp;
+		const tempHeading = createElement('h2', 'daily-temp', '', temp);
+		dailyContainer.append(dateHeading, iconImg, tempHeading);
+		weatherForecast.appendChild(dailyContainer);
+	}
+}
+
+function createElement(type, classname, src = '', innerText = '') {
+	const element = document.createElement(type);
+	if (src) element.src = src;
+	if (classname) element.classList.add(classname);
+	if (innerText) element.innerText = innerText;
+	return element;
 }
 
 function hideLoadingState() {

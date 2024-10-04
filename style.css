@@ -14,6 +14,10 @@
 		                   0px 32px 64px 0px rgba(0, 0, 0, 0.07);
 }
 
+body { 
+	background-color: #ffecc8;
+ }
+
 .container {
 	width: 100vw;
 	height: 100vh;
@@ -26,43 +30,63 @@
 }
 
 .search-and-location {
+  background-color: whitesmoke;
+	border-bottom: 1px solid rgba(141, 141, 141, 0.1);
 	grid-area: search-and-location;
   height: 50%;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.192);
 }
 
 .current-weather {
-  background-color: rgba(240, 255, 102, 0.384);
+  background-color: whitesmoke;
 	grid-area: current-weather;
-  display: flex;
-  position: relative;
+  display: grid;
+	grid-template-columns: 1fr 2fr 2fr 1fr;
+	grid-template-rows: 2fr 0.5fr 1fr;
+	grid-template-areas: '. current-temp      current-icon     .'
+											'. current-datetime  current-datetime  .'
+											'. current-condition current-condition .';
 	width: 50%;
 	height: 70%;
-	border: 1px solid rgba(0, 0, 0, 0.192);
-  border-radius: 3px;
+  border-radius: 6px;
   box-shadow: var(--modern-box-shadow);
 	justify-self: center;
 	align-self: center;
 }
 
-.current-weather img {
-  width: 100%;
-  height: 85%;
-  object-fit: contain;
-  align-self: center;
-  justify-self: center;
-  opacity: 35%;
+.current-temp {
+	grid-area: current-temp;
+	font-size: 6.5rem;
+	justify-self: center;
+	align-self: center;
 }
 
-.current-weather h1 {
-  position: absolute;
+.current-icon {
+	grid-area: current-icon;
+	max-width: 75%;
+	justify-self: center;
+	align-self: center;
+}
+
+.current-location {
+	grid-area: current-datetime;
+	justify-self: center;
+}
+
+.current-condition {
+	grid-area: current-condition;
+	font-size: 4rem;
+	justify-self: center;
 }
 
 .weather-forecast {
+	display: flex;
+	flex-direction: row;
+	flex-grow: 1;
+	background-color: whitesmoke;
 	grid-area: weather-forecast;
   width: 65%;
-  height: 40%;
-	border: 1px solid rgba(0, 0, 0, 0.192);
+  height: 70%;
+	border-radius: 6px;
   box-shadow: var(--modern-box-shadow);
   justify-self: center;
 	align-self: center;
