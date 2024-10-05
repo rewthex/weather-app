@@ -34,17 +34,33 @@ body {
 	border-bottom: 1px solid rgba(141, 141, 141, 0.1);
 	grid-area: search-and-location;
   height: 50%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 25px;
+}
+
+.search > input {
+	height: 27px;
+	padding: 4px;
+}
+
+.search > button {
+	min-width: 100px;
+	height: 27px;
+	padding: 4px;
 }
 
 .current-weather {
   background-color: whitesmoke;
 	grid-area: current-weather;
   display: grid;
-	grid-template-columns: 1fr 2fr 2fr 1fr;
+	grid-template-columns: 0.5fr 2fr 2fr 0.5fr;
 	grid-template-rows: 2fr 0.5fr 1fr;
-	grid-template-areas: '. current-temp      current-icon     .'
-											'. current-datetime  current-datetime  .'
-											'. current-condition current-condition .';
+	grid-template-areas: '. current-temp      current-icon  .'
+											'. current-condition  current-icon  .'
+											'. current-condition  current-icon  .';
 	width: 50%;
 	height: 70%;
   border-radius: 6px;
@@ -62,20 +78,16 @@ body {
 
 .current-icon {
 	grid-area: current-icon;
-	max-width: 75%;
+	max-width: 85%;
 	justify-self: center;
 	align-self: center;
 }
 
-.current-location {
-	grid-area: current-datetime;
-	justify-self: center;
-}
-
 .current-condition {
 	grid-area: current-condition;
-	font-size: 4rem;
-	justify-self: center;
+	font-size: 3rem;
+	text-align: center;
+
 }
 
 .weather-forecast {
