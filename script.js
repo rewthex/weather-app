@@ -1,15 +1,23 @@
-import { DUMMY_DATA } from './dummydata.js';
-
 const API_KEY = '6A5BZCC93UM99R3GT2ARTW6QK';
 let city;
 
+const searchButton = document.querySelector('.search-button');
+searchButton.addEventListener('click', getWeatherData);
+const searchInput = document.querySelector('.search-input');
+searchInput.addEventListener('keyup', function(event) {
+	if (event.key === 'Enter') {
+		getWeatherData();
+	}
+})
+
 async function getWeatherData() {
-	const searchInput = document.querySelector('.search-input');
+	showLoadingState();
 	if (searchInput.value) {
 		city = searchInput.value;
 	} else {
 		city = 'Portland';
 	}
+	
 	const response =
 		await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/next7days?unitGroup=us&elements=datetime%2Ctempmax%2Ctempmin%2Ctemp%2Cconditions%2Cdescription%2Cicon&include=fcst%2Chours%2Ccurrent%2Cdays&key=${API_KEY}&options=nonulls&contentType=json
 	`);
@@ -80,6 +88,15 @@ function createElement(type, classname, src = '', innerText = '') {
 	return element;
 }
 
+function showLoadingState() {
+	const currentWeatherContainer = document.querySelector('.current-weather');
+	const weatherForecastContainer = document.querySelector('.weather-forecast');
+	const loadingDiv = createElement('div', 'loading-placeholder')
+
+	currentWeatherContainer.appendChild(loadingDiv);
+	weatherForecastContainer.appendChild(loadingDiv);
+}
+
 function hideLoadingState() {
 	const currentWeatherContainer = document.querySelector('.current-weather');
 	const weatherForecastContainer = document.querySelector('.weather-forecast');
@@ -87,8 +104,5 @@ function hideLoadingState() {
 	currentWeatherContainer.innerHTML = '';
 	weatherForecastContainer.innerHTML = '';
 }
-
-const searchButton = document.querySelector('.search-button');
-searchButton.addEventListener('click', getWeatherData);
 
 getWeatherData();

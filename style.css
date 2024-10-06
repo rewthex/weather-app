@@ -15,7 +15,7 @@
 }
 
 body { 
-	background-color: #ffecc8;
+	background-color: #76adff;
  }
 
 .container {
@@ -61,7 +61,7 @@ body {
 	grid-template-areas: '. current-temp      current-icon  .'
 											'. current-condition  current-icon  .'
 											'. current-condition  current-icon  .';
-	width: 50%;
+	width: 65%;
 	height: 70%;
   border-radius: 6px;
   box-shadow: var(--modern-box-shadow);
@@ -95,7 +95,7 @@ body {
 	flex-direction: row;
 	background-color: whitesmoke;
 	grid-area: weather-forecast;
-  width: 65%;
+  width: 75%;
   height: 70%;
 	border-radius: 6px;
   box-shadow: var(--modern-box-shadow);
